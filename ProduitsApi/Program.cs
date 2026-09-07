@@ -10,7 +10,7 @@ builder.Services.AddControllers();
 
 // Base de données en mémoire
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseInMemoryDatabase("ProduitsDb"));
+    options.UseSqlite("Data Source=produits.db"));
 
 // Notre service métier : quand on demande IProduitService,
 // ASP.NET fournit une instance de ProduitService.

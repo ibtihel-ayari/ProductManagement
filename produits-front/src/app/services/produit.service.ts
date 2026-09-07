@@ -11,7 +11,7 @@ export class ProduitService {
   // ⚠️ Adaptez le PORT à celui affiché par votre backend !
   private apiUrl = 'http://localhost:5215/api/produits';
 
-  // HttpClient est INJECTÉ dans le constructeur
+  // HttpClient est INJECTÉ dans le constructeur 
   constructor(private http: HttpClient) {}
 
   // Chaque méthode renvoie un Observable (flux asynchrone)

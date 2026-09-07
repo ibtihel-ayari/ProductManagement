@@ -16,9 +16,9 @@ public class AppDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Produit>().HasData(
-            new Produit { Id = 1, Nom = "Clavier", Description = "Clavier mécanique", Prix = 79.90m, Stock = 12 },
-            new Produit { Id = 2, Nom = "Souris",  Description = "Souris sans fil",    Prix = 29.90m, Stock = 30 },
-            new Produit { Id = 3, Nom = "Écran",   Description = "Écran 27 pouces",    Prix = 199.00m, Stock = 5 }
+            new Produit { Id = 1, Nom = "Clavier", Description = "Clavier mécanique", Prix = 79.90m, Stock = 12, DateCreation = new DateTime(2025, 1, 1) },
+            new Produit { Id = 2, Nom = "Souris",  Description = "Souris sans fil",    Prix = 29.90m, Stock = 30, DateCreation = new DateTime(2025, 1, 1) },
+            new Produit { Id = 3, Nom = "Écran",   Description = "Écran 27 pouces",    Prix = 199.00m, Stock = 5,  DateCreation = new DateTime(2025, 1, 1) }
         );
     }
 }
