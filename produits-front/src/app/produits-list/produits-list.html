@@ -1,0 +1,31 @@
+<h1>Liste des produits</h1>
+
+<a routerLink="/nouveau" class="btn-ajouter">+ Ajouter un produit</a>
+
+<!-- *ngIf : directive structurelle (affiche/masque selon condition) -->
+<p *ngIf="chargement">Chargement...</p>
+<p *ngIf="erreur" class="erreur">{{ erreur }}</p>
+
+<table *ngIf="!chargement && produits.length > 0">
+  <thead>
+    <tr>
+      <th>Nom</th><th>Description</th><th>Prix</th><th>Stock</th><th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- *ngFor : boucle sur chaque produit -->
+    <tr *ngFor="let p of produits">
+      <td>{{ p.nom }}</td>
+      <td>{{ p.description }}</td>
+      <!-- pipe currency : formate le nombre en monnaie -->
+      <td>{{ p.prix | currency:'EUR' }}</td>
+      <td>{{ p.stock }}</td>
+      <td>
+        <a [routerLink]="['/modifier', p.id]">Modifier</a>
+        <button (click)="supprimer(p.id)">Supprimer</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p *ngIf="!chargement && produits.length === 0">Aucun produit.</p>

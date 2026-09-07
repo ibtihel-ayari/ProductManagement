@@ -1,0 +1,14 @@
+body { background: #f5f5f5; color: #222; }
+table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+th { background: #333; color: #fff; }
+button, .btn-ajouter, a { cursor: pointer; }
+.btn-ajouter { display: inline-block; background: #2e7d32; color: #fff;
+  padding: 8px 14px; text-decoration: none; border-radius: 4px; }
+form div { margin-bottom: 1rem; }
+label { display: block; font-weight: bold; margin-bottom: 4px; }
+input, textarea { width: 100%; padding: 6px; box-sizing: border-box; }
+.erreur, small { color: #c62828; }
+button[type=submit] { background: #1565c0; color: #fff; border: none;
+  padding: 10px 20px; border-radius: 4px; }
+button[type=submit]:disabled { background: #999; }

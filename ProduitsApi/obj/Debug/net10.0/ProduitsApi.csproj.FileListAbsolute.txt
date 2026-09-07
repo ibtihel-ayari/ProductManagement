@@ -37,3 +37,4 @@ C:\Users\ITEC2\Desktop\product\ProduitsApi\obj\Debug\net10.0\refint\ProduitsApi.
 C:\Users\ITEC2\Desktop\product\ProduitsApi\obj\Debug\net10.0\ProduitsApi.pdb
 C:\Users\ITEC2\Desktop\product\ProduitsApi\obj\Debug\net10.0\ProduitsApi.genruntimeconfig.cache
 C:\Users\ITEC2\Desktop\product\ProduitsApi\obj\Debug\net10.0\ref\ProduitsApi.dll
+C:\Users\ITEC2\Desktop\product\ProduitsApi\obj\Debug\net10.0\ProduitsApi.sourcelink.json

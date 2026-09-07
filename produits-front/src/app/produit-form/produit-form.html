@@ -1,0 +1,38 @@
+<h1>{{ modeEdition ? 'Modifier' : 'Nouveau' }} produit</h1>
+
+<!-- [formGroup] lie le formulaire TS au HTML -->
+<form [formGroup]="form" (ngSubmit)="enregistrer()">
+
+  <div>
+    <label>Nom</label>
+    <input formControlName="nom" />
+    <!-- Affichage conditionnel des erreurs de validation -->
+    <small *ngIf="f['nom'].touched && f['nom'].errors?.['required']">
+      Le nom est obligatoire.
+    </small>
+    <small *ngIf="f['nom'].touched && f['nom'].errors?.['minlength']">
+      Minimum 2 caractères.
+    </small>
+  </div>
+
+  <div>
+    <label>Description</label>
+    <textarea formControlName="description"></textarea>
+  </div>
+
+  <div>
+    <label>Prix (€)</label>
+    <input type="number" formControlName="prix" />
+    <small *ngIf="f['prix'].touched && f['prix'].errors?.['min']">
+      Le prix doit être positif.
+    </small>
+  </div>
+
+  <div>
+    <label>Stock</label>
+    <input type="number" formControlName="stock" />
+  </div>
+
+  <button type="submit" [disabled]="form.invalid">Enregistrer</button>
+  <a routerLink="/">Annuler</a>
+</form>
