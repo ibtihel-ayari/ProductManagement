@@ -1,31 +1,59 @@
-<h1>Liste des produits</h1>
+<div class="page">
 
-<a routerLink="/nouveau" class="btn-ajouter">+ Ajouter un produit</a>
+  <header class="page-head">
+    <div>
+      <h1>Produits</h1>
+      <p class="subtitle">Gérez votre catalogue, vos prix et votre stock.</p>
+    </div>
+    <a routerLink="/nouveau" class="btn btn-primary">
+      <span class="btn-icon">+</span> Ajouter un produit
+    </a>
+  </header>
 
-<!-- *ngIf : directive structurelle (affiche/masque selon condition) -->
-<p *ngIf="chargement">Chargement...</p>
-<p *ngIf="erreur" class="erreur">{{ erreur }}</p>
+  <!-- *ngIf : directive structurelle (affiche/masque selon condition) -->
+  <p *ngIf="chargement" class="state state-loading">Chargement des produits…</p>
+  <p *ngIf="erreur" class="state state-error">{{ erreur }}</p>
 
-<table *ngIf="!chargement && produits.length > 0">
-  <thead>
-    <tr>
-      <th>Nom</th><th>Description</th><th>Prix</th><th>Stock</th><th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <!-- *ngFor : boucle sur chaque produit -->
-    <tr *ngFor="let p of produits">
-      <td>{{ p.nom }}</td>
-      <td>{{ p.description }}</td>
-      <!-- pipe currency : formate le nombre en monnaie -->
-      <td>{{ p.prix | currency:'EUR' }}</td>
-      <td>{{ p.stock }}</td>
-      <td>
-        <a [routerLink]="['/modifier', p.id]">Modifier</a>
-        <button (click)="supprimer(p.id)">Supprimer</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+  <div class="card table-card" *ngIf="!chargement && produits.length > 0">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Description</th>
+          <th class="num">Prix</th>
+          <th class="num">Stock</th>
+          <th class="actions-col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- *ngFor : boucle sur chaque produit -->
+        <tr *ngFor="let p of produits">
+          <td class="cell-name">{{ p.nom }}</td>
+          <td class="cell-desc">{{ p.description }}</td>
+          <!-- pipe currency : formate le nombre en monnaie -->
+          <td class="num cell-price">{{ p.prix | currency:'EUR' }}</td>
+          <td class="num">{{ p.stock }}</td>
+          <td class="actions-col">
+            <a [routerLink]="['/modifier', p.id]" class="btn-link">Modifier</a>
+            <button (click)="supprimer(p.id)" class="btn-link btn-danger">Supprimer</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-<p *ngIf="!chargement && produits.length === 0">Aucun produit.</p>
+  <div *ngIf="!chargement && produits.length === 0" class="empty">
+    <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 8l-9-5-9 5v8l9 5 9-5V8z"></path>
+      <path d="M3 8l9 5 9-5"></path>
+      <path d="M12 13v9"></path>
+    </svg>
+    <h2>Aucun produit pour l'instant</h2>
+    <p>Commencez par ajouter votre premier produit au catalogue.</p>
+    <a routerLink="/nouveau" class="btn btn-primary">
+      <span class="btn-icon">+</span> Ajouter un produit
+    </a>
+  </div>
+
+</div>

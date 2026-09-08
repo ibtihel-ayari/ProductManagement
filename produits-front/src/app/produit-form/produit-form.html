@@ -1,38 +1,60 @@
-<h1>{{ modeEdition ? 'Modifier' : 'Nouveau' }} produit</h1>
+<div class="page page-narrow">
 
-<!-- [formGroup] lie le formulaire TS au HTML -->
-<form [formGroup]="form" (ngSubmit)="enregistrer()">
+  <a routerLink="/" class="back-link">← Retour aux produits</a>
 
-  <div>
-    <label>Nom</label>
-    <input formControlName="nom" />
-    <!-- Affichage conditionnel des erreurs de validation -->
-    <small *ngIf="f['nom'].touched && f['nom'].errors?.['required']">
-      Le nom est obligatoire.
-    </small>
-    <small *ngIf="f['nom'].touched && f['nom'].errors?.['minlength']">
-      Minimum 2 caractères.
-    </small>
+  <div class="card form-card">
+    <h1>{{ modeEdition ? 'Modifier le produit' : 'Nouveau produit' }}</h1>
+    <p class="subtitle">
+      {{ modeEdition ? 'Mettez à jour les informations ci-dessous.' : 'Renseignez les informations du produit.' }}
+    </p>
+
+    <!-- [formGroup] lie le formulaire TS au HTML -->
+    <form [formGroup]="form" (ngSubmit)="enregistrer()" class="form">
+
+      <div class="field">
+        <label for="nom">Nom</label>
+        <input id="nom" formControlName="nom" placeholder="Ex. Chaise en chêne" />
+        <!-- Affichage conditionnel des erreurs de validation -->
+        <small class="field-error" *ngIf="f['nom'].touched && f['nom'].errors?.['required']">
+          Le nom est obligatoire.
+        </small>
+        <small class="field-error" *ngIf="f['nom'].touched && f['nom'].errors?.['minlength']">
+          Minimum 2 caractères.
+        </small>
+      </div>
+
+      <div class="field">
+        <label for="description">Description</label>
+        <textarea id="description" formControlName="description" rows="4"
+                  placeholder="Décrivez le produit…"></textarea>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="prix">Prix (€)</label>
+          <input id="prix" type="number" formControlName="prix" placeholder="0.00" />
+          <small class="field-error" *ngIf="f['prix'].touched && f['prix'].errors?.['min']">
+            Le prix doit être positif.
+          </small>
+        </div>
+
+        <div class="field">
+          <label for="stock">Stock</label>
+          <input id="stock" type="number" formControlName="stock" placeholder="0" />
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Enregistrer</button>
+        <a routerLink="/" class="btn btn-ghost">Annuler</a>
+      </div>
+
+    </form>
   </div>
 
-  <div>
-    <label>Description</label>
-    <textarea formControlName="description"></textarea>
-  </div>
+</div>
 
-  <div>
-    <label>Prix (€)</label>
-    <input type="number" formControlName="prix" />
-    <small *ngIf="f['prix'].touched && f['prix'].errors?.['min']">
-      Le prix doit être positif.
-    </small>
-  </div>
 
-  <div>
-    <label>Stock</label>
-    <input type="number" formControlName="stock" />
-  </div>
 
-  <button type="submit" [disabled]="form.invalid">Enregistrer</button>
-  <a routerLink="/">Annuler</a>
-</form>
+
+

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Produit } from '../models/produit';
@@ -16,28 +16,28 @@ export class ProduitsList implements OnInit {
   erreur = '';
 
   // Le service est injecté dans le constructeur
-  constructor(private produitService: ProduitService) {}
+  constructor(
+  private produitService: ProduitService,
+  private cdr: ChangeDetectorRef        // ← ajoute ceci
+) {}
 
   // ngOnInit s'exécute automatiquement au chargement du composant
   ngOnInit(): void {
-    this.chargerProduits();
-  }
+  console.log('✅ ngOnInit exécuté');
+  this.chargerProduits();
+}
 
-  chargerProduits(): void {
-    this.chargement = true;
-    // On s'ABONNE à l'Observable renvoyé par le service
-    this.produitService.getAll().subscribe({
-      next: (data) => {           // en cas de succès
-        this.produits = data;
-        this.chargement = false;
-      },
-      error: (err) => {           // en cas d'erreur
-        this.erreur = 'Impossible de charger les produits.';
-        this.chargement = false;
-        console.error(err);
-      }
-    });
-  }
+chargerProduits(): void {
+  this.chargement = true;
+  this.produitService.getAll().subscribe({
+    next: (data) => {
+      this.produits = data;
+      this.chargement = false;
+      this.cdr.detectChanges();          // ← force le re-rendu
+    },
+    error: (err) => { this.erreur = 'Impossible de charger les produits.'; this.chargement = false; this.cdr.detectChanges(); }
+  });
+}
 
   supprimer(id: number): void {
     if (!confirm('Supprimer ce produit ?')) return;
