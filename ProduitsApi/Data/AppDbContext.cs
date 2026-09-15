@@ -5,16 +5,20 @@ namespace ProduitsApi.Data;
 
 public class AppDbContext : DbContext
 {
-    // Le constructeur reçoit la configuration (via injection de dépendances)
     public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options) { }
 
-    // Un DbSet<T> = une table. Ici la table "Produits".
     public DbSet<Produit> Produits => Set<Produit>();
+    public DbSet<Utilisateur> Utilisateurs => Set<Utilisateur>();   // ← NOUVEAU
 
-    // Optionnel : on pré-remplit quelques données de démo (seeding)
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        // L'email doit être unique (pas deux comptes avec le même email)
+        modelBuilder.Entity<Utilisateur>()
+            .HasIndex(u => u.Email)
+            .IsUnique();
+
+        // Le seeding des produits (dates fixes, cf. tuto précédent)
         modelBuilder.Entity<Produit>().HasData(
             new Produit { Id = 1, Nom = "Clavier", Description = "Clavier mécanique", Prix = 79.90m, Stock = 12, DateCreation = new DateTime(2025, 1, 1) },
             new Produit { Id = 2, Nom = "Souris",  Description = "Souris sans fil",    Prix = 29.90m, Stock = 30, DateCreation = new DateTime(2025, 1, 1) },
